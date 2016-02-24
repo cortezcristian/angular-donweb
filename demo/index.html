@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="calc">
+
+<head>
+  <title>Calculadora</title>
+  <script src="./bower_components/angular/angular.min.js"></script>
+  <script>
+      angular.module('calc', [])
+        .config(function(){
+          
+        })
+        .controller('calcController', function($scope){
+          $scope.resultado = '';
+
+          $scope.$watch('resultado', function(oldval, newval){
+            console.log(newval);  
+          });
+
+          $scope.rem = function(n){
+            if(n==='=') {
+              $scope.resultado = eval($scope.resultado);
+            } else {
+              $scope.resultado += n;
+            }
+          }
+        });
+  </script>
+</head>
+
+<body>
+  <div ng-controller="calcController">
+    <label>Name:</label>
+    <input type="text" ng-model="resultado" placeholder="Enter a name here">
+    <hr>
+    <h1>Res: {{resultado}}!</h1>
+    <button ng-repeat="num in '123456789+-='.split('')" ng-click="rem(num)">{{num}}</button>
+  </div>
+  <h1>Res: {{resultado}}!</h1>
+</body>
+
+</html>
