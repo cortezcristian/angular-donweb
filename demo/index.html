@@ -9,9 +9,15 @@
         .config(function(){
           
         })
-        .controller('calcController', function($scope){
+        .controller('calcController', function($scope, UtilsServ){
+          $scope.resultado_suma = UtilsServ.sumar(1,2);
+          UtilsServ.generar('data').then(function(data){
+            console.log("data:", data);  
+          }, function(e){
+            console.log("err");  
+          });
         })
-        .directive('calculadora', function(){
+        .directive('calculadora', function(UtilsServ){
           return {
             scope: true,
             restrict: 'EA',
@@ -27,13 +33,33 @@
 
               $scope.rem = function(n){
                 if(n==='=') {
-                  $scope.resultado = eval($scope.resultado);
+                  $scope.resultado = UtilsServ.evaluar($scope.resultado);
                 } else {
                   $scope.resultado += n;
                 }
               }
             }  
           };  
+        }).factory('UtilsServ', function($q){
+          return {
+            generar: function(param){
+              var res = $q.defer();  
+              setTimeout(function(){
+                if(param == 'data') {
+                  res.resolve({data: 1});
+                } else {
+                  res.reject();
+                }
+              }, 1000);
+              return res.promise;
+            },
+            evaluar: function(expr){
+              return eval(expr);
+            }, 
+            sumar: function(a,b){
+              return a+b;
+            }  
+          }
         });
   </script>
 </head>
@@ -41,7 +67,7 @@
 <body>
   <div ng-controller="calcController">
     <label>Name:</label>
-    <input type="text" ng-model="resultado" placeholder="Enter a name here">
+    <input type="text" ng-model="resultado_suma" placeholder="Enter a name here">
     <hr>
     <div calculadora></div>
     <!--
