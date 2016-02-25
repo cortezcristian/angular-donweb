@@ -3,7 +3,7 @@
 ## ECMA Script 6
 https://github.com/lukehoban/es6features/blob/master/README.md
 
-## Promises ** Este es el que te decia ***
+## Promises 
 http://www.html5rocks.com/en/tutorials/es6/promises/
 
 ## Asynch JS: The Power Of $.Deferred
