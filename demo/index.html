@@ -3,19 +3,26 @@
 
 <head>
   <title>Calculadora</title>
-  <script src="./bower_components/angular/angular.min.js"></script>
+  <script src="./bower_components/angular/angular.js"></script>
   <script>
       angular.module('calc', [])
         .config(function(){
           
         })
-        .controller('calcController', function($scope, UtilsServ){
+        .controller('calcController', function($http, $log, $scope, UtilsServ){
           $scope.resultado_suma = UtilsServ.sumar(1,2);
-          UtilsServ.generar('data').then(function(data){
+          var prom_val = UtilsServ.generar().then(function(data){
             console.log("data:", data);  
-          }, function(e){
-            console.log("err");  
+            return data;
           });
+
+          $http.get('/data.json').then(function(data){
+            $log.log(data);
+            debugger;
+          }, function(err){
+            $log.log(err);  
+          })
+
         })
         .directive('calculadora', function(UtilsServ){
           return {
