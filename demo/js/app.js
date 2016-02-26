@@ -59,6 +59,9 @@ angular.module('calc', [])
         return eval(expr);
       },
       sumar: function(a, b) {
+        if(!a || !b){
+          throw new Error("2 Params were expected");
+        }
         return a + b;
       }
     }

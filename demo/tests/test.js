@@ -14,5 +14,7 @@ describe('sample', function(){
     console.log("First test");
     var res = UtilsServ.sumar(1,3);
     expect(res).toBe(4);
+    expect(res).not.toBe(5);
+    expect(function(){ UtilsServ.sumar()}).toThrow(new Error("2 Params were expected"));
   });
 });
