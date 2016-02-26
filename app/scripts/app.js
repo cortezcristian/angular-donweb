@@ -15,9 +15,21 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
+    'adf',
+    'adf.structures.base',
     'ngTouch'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, dashboardProvider) {
+    dashboardProvider
+      .structure('6-6', {
+        rows: [{
+          columns: [{
+            styleClass: 'col-md-6'
+          }, {
+            styleClass: 'col-md-6'
+          }]
+        }]
+      });
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
